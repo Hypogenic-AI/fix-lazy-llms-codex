@@ -1,0 +1,6 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We evaluated harsh self-critique prompting and response-budget control on \gsm and \arc with a fixed \gptfourone model. The main result is negative: harsh-critic prompting reduces accuracy, and the low-budget variant performs worst. In contrast, \cotprompt remains the most reliable low-effort improvement. The key takeaway is that harsher self-critique does not fix lazy LLM outputs in this setting and can actively harm accuracy.
+
+Future work should test self-consistency and least-to-most prompting on the same samples, run multi-round self-refine to see if iterative feedback recovers the critic losses, and incorporate human or LLM-judge evaluations of output quality beyond accuracy.

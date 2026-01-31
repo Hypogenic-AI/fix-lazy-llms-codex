@@ -1,0 +1,13 @@
+dataset,condition,n,avg_length
+arc,cot-neutral,50,122.6
+arc,critic-harsh,50,191.42
+arc,critic-harsh-lowbudget,50,98.5
+arc,direct-neutral,50,2.0
+arc,polite-direct,50,2.0
+arc,rude-direct,50,2.0
+gsm8k,cot-neutral,50,103.38
+gsm8k,critic-harsh,50,155.34
+gsm8k,critic-harsh-lowbudget,50,85.2
+gsm8k,direct-neutral,50,2.0
+gsm8k,polite-direct,50,2.0
+gsm8k,rude-direct,50,2.0

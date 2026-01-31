@@ -1,0 +1,194 @@
+Ari Holtzman, Peter West, Vered Shwartz, Yejin Choi,
+and Luke Zettlemoyer. 2021. Surface form competi-
+tion: Why the highest probability answer isn’t always
+right. In Proceedings of the 2021 Conference on Em-
+pirical Methods in Natural Language Processing ,
+pages 7038–7051.
+Andrew Ilyas, Shibani Santurkar, Dimitris Tsipras, Lo-
+gan Engstrom, Brandon Tran, and Aleksander Madry.
+2019. Adversarial examples are not bugs, they are
+features. Advances in neural information processing
+systems, 32.
+Robin Jia and Percy Liang. 2017. Adversarial exam-
+ples for evaluating reading comprehension systems.
+In Proceedings of the 2017 Conference on Empiri-
+cal Methods in Natural Language Processing , pages
+2021–2031.
+Yuxuan Lai, Chen Zhang, Yansong Feng, Quzhe Huang,
+and Dongyan Zhao. 2021. Why machine read-
+ing comprehension models learn shortcuts? In
+ACL/IJCNLP (Findings).
+Yuanyuan Lei and Ruihong Huang. 2022. Few-shot
+(dis) agreement identification in online discussions
+with regularized and augmented meta-learning. In
+Findings of the Association for Computational Lin-
+guistics: EMNLP 2022 , pages 5581–5593.
+Yuanyuan Lei, Ruihong Huang, Lu Wang, and Nick
+Beauchamp. 2022. Sentence-level media bias analy-
+sis informed by discourse structures. In Proceedings
+of the 2022 Conference on Empirical Methods in
+Natural Language Processing, pages 10040–10050.
+Jingjing Liu, Scott Cyphers, Panupong Pasupat, Ian
+McGraw, and James Glass. 2012. A conversational
+movie search system based on conditional random
+fields. In Thirteenth Annual Conference of the Inter-
+national Speech Communication Association .
+Pengfei Liu, Weizhe Yuan, Jinlan Fu, Zhengbao Jiang,
+Hiroaki Hayashi, and Graham Neubig. 2023. Pre-
+train, prompt, and predict: A systematic survey of
+prompting methods in natural language processing.
+ACM Computing Surveys, 55(9):1–35.
+Tom McCoy, Ellie Pavlick, and Tal Linzen. 2019. Right
+for the wrong reasons: Diagnosing syntactic heuris-
+tics in natural language inference. In Proceedings
+of the 57th Annual Meeting of the Association for
+Computational Linguistics, pages 3428–3448.
+Sewon Min, Mike Lewis, Luke Zettlemoyer, and Han-
+naneh Hajishirzi. 2021. Metaicl: Learning to learn in
+context. arXiv preprint arXiv:2110.15943.
+Swaroop Mishra, Daniel Khashabi, Chitta Baral, Yejin
+Choi, and Hannaneh Hajishirzi. 2021. Reframing
+instructional prompts to gptk’s language. arXiv
+preprint arXiv:2109.07830.
+Fabio Petroni, Tim Rocktäschel, Sebastian Riedel,
+Patrick Lewis, Anton Bakhtin, Yuxiang Wu, and
+Alexander Miller. 2019. Language models as knowl-
+edge bases? In Proceedings of the 2019 Confer-
+ence on Empirical Methods in Natural Language Pro-
+cessing and the 9th International Joint Conference
+on Natural Language Processing (EMNLP-IJCNLP) ,
+pages 2463–2473.
+Fanchao Qi, Yangyi Chen, Xurui Zhang, Mukai Li,
+Zhiyuan Liu, and Maosong Sun. 2021. Mind the style
+of text! adversarial and backdoor attacks based on
+text style transfer. In Proceedings of the 2021 Confer-
+ence on Empirical Methods in Natural Language Pro-
+cessing, pages 4569–4580, Online and Punta Cana,
+Dominican Republic. Association for Computational
+Linguistics.
+Marco Tulio Ribeiro, Sameer Singh, and Carlos
+Guestrin. 2016. " why should i trust you?" explaining
+the predictions of any classifier. In Proceedings of
+the 22nd ACM SIGKDD international conference on
+knowledge discovery and data mining , pages 1135–
+1144.
+Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin,
+and Sameer Singh. 2020. Beyond accuracy: Behav-
+ioral testing of nlp models with checklist. In Proceed-
+ings of the 58th Annual Meeting of the Association
+for Computational Linguistics, pages 4902–4912.
+Ohad Rubin, Jonathan Herzig, and Jonathan Berant.
+2021. Learning to retrieve prompts for in-context
+learning. arXiv preprint arXiv:2112.08633.
+Victor Sanh, Albert Webson, Colin Raffel, Stephen H
+Bach, Lintang Sutawika, Zaid Alyafeai, Antoine
+Chaffin, Arnaud Stiegler, Teven Le Scao, Arun
+Raja, et al. 2021. Multitask prompted training en-
+ables zero-shot task generalization. arXiv preprint
+arXiv:2110.08207.
+Richard Socher, Alex Perelygin, Jean Wu, Jason
+Chuang, Christopher D Manning, Andrew Y Ng, and
+Christopher Potts. 2013. Recursive deep models for
+semantic compositionality over a sentiment treebank.
+In Proceedings of the 2013 conference on empiri-
+cal methods in natural language processing , pages
+1631–1642.
+Ruixiang Tang, Mengnan Du, Yuening Li, Zirui Liu,
+Na Zou, and Xia Hu. 2021. Mitigating gender bias
+in captioning systems. In Proceedings of the Web
+Conference 2021, pages 633–645.
+Ruixiang Tang, Xiaotian Han, Xiaoqian Jiang, and
+Xia Hu. 2023. Does synthetic data generation of
+llms help clinical text mining? arXiv preprint
+arXiv:2303.04360.
+Lifu Tu, Garima Lalwani, Spandana Gella, and He He.
+2020. An empirical study on robustness to spuri-
+ous correlations using pre-trained language models.
+Transactions of the Association for Computational
+Linguistics, 8:621–633.
+4654
+Tianlu Wang, Diyi Yang, and Xuezhi Wang. 2021. Iden-
+tifying and mitigating spurious correlations for im-
+proving robustness in nlp models. arXiv preprint
+arXiv:2110.07736.
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten
+Bosma, Ed Chi, Quoc Le, and Denny Zhou. 2022.
+Chain of thought prompting elicits reasoning in large
+language models. arXiv preprint arXiv:2201.11903.
+Jingfeng Yang, Hongye Jin, Ruixiang Tang, Xiaotian
+Han, Qizhang Feng, Haoming Jiang, Bing Yin, and
+Xia Hu. 2023. Harnessing the power of llms in prac-
+tice: A survey on chatgpt and beyond. arXiv preprint
+arXiv:2304.13712.
+Wenkai Yang, Yankai Lin, Peng Li, Jie Zhou, and
+Xu Sun. 2021. Rethinking stealthiness of backdoor
+attack against nlp models. In Proceedings of the 59th
+Annual Meeting of the Association for Computational
+Linguistics and the 11th International Joint Confer-
+ence on Natural Language Processing (V olume 1:
+Long Papers), pages 5543–5557.
+Marcos Zampieri, Shervin Malmasi, Preslav Nakov,
+Sara Rosenthal, Noura Farra, and Ritesh Kumar.
+2019. Predicting the Type and Target of Offensive
+Posts in Social Media. In Proceedings of NAACL.
+Jieyu Zhao, Tianlu Wang, Mark Yatskar, Vicente Or-
+donez, and Kai-Wei Chang. 2017. Men also like
+shopping: Reducing gender bias amplification us-
+ing corpus-level constraints. In Proceedings of the
+2017 Conference on Empirical Methods in Natural
+Language Processing, pages 2979–2989.
+Jieyu Zhao, Tianlu Wang, Mark Yatskar, Vicente Or-
+donez, and Kai-Wei Chang. 2018. Gender bias in
+coreference resolution: Evaluation and debiasing
+methods. In Proceedings of the 2018 Conference
+of the North American Chapter of the Association
+for Computational Linguistics: Human Language
+Technologies, V olume 2 (Short Papers), pages 15–20.
+Zihao Zhao, Eric Wallace, Shi Feng, Dan Klein, and
+Sameer Singh. 2021. Calibrate before use: Improv-
+ing few-shot performance of language models. In In-
+ternational Conference on Machine Learning , pages
+12697–12706. PMLR.
+4655
+ACL 2023 Responsible NLP Checklist
+A For every submission:
+□ A1. Did you describe the limitations of your work?
+8
+□ A2. Did you discuss any potential risks of your work?
+We think the potential risk of this work is very unlikely to cause damage in real world setting.
+□ A3. Do the abstract and introduction summarize the paper’s main claims?
+1
+□ A4. Have you used AI writing assistants when working on this paper?
+Left blank.
+B □ Did you use or create scientiﬁc artifacts?
+Left blank.
+□ B1. Did you cite the creators of artifacts you used?
+Left blank.
+□ B2. Did you discuss the license or terms for use and / or distribution of any artifacts?
+Left blank.
+□ B3. Did you discuss if your use of existing artifact(s) was consistent with their intended use, provided
+that it was speciﬁed? For the artifacts you create, do you specify intended use and whether that is
+compatible with the original access conditions (in particular, derivatives of data accessed for research
+purposes should not be used outside of research contexts)?
+Left blank.
+□ B4. Did you discuss the steps taken to check whether the data that was collected / used contains any
+information that names or uniquely identiﬁes individual people or offensive content, and the steps
+taken to protect / anonymize it?
+Left blank.
+□ B5. Did you provide documentation of the artifacts, e.g., coverage of domains, languages, and
+linguistic phenomena, demographic groups represented, etc.?
+Left blank.
+□ B6. Did you report relevant statistics like the number of examples, details of train / test / dev splits,
+etc. for the data that you used / created? Even for commonly-used benchmark datasets, include the
+number of examples in train / validation / test splits, as these provide necessary context for a reader
+to understand experimental results. For example, small differences in accuracy on large test sets may
+be signiﬁcant, while on small test sets they may not be.
+Left blank.
+C □ Did you run computational experiments?
+5
+□ C1. Did you report the number of parameters in the models used, the total computational budget
+(e.g., GPU hours), and computing infrastructure used?
+We didn’t update the parameters and just use inference in this paper .
+The Responsible NLP Checklist used at ACL 2023 is adopted from NAACL 2022, with the addition of a question on AI writing
+assistance.
+4656

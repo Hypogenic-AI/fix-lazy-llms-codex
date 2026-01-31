@@ -1,0 +1,18 @@
+\begin{table}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        \textbf{Condition} & \textbf{\gsm Diff vs. \direct} & \textbf{\arc Diff vs. \direct} \\
+        \midrule
+        \cotprompt & +0.22 [0.08, 0.36] & +0.02 [-0.04, 0.08] \\
+        \harshcritic & -0.12 [-0.26, 0.02] & -0.56 [-0.72, -0.40] \\
+        \harshbudget & -0.38 [-0.52, -0.22] & -0.64 [-0.78, -0.50] \\
+        \rudedirect & -0.04 [-0.12, 0.04] & +0.04 [0.00, 0.10] \\
+        \politedirect & -0.04 [-0.12, 0.04] & 0.00 [0.00, 0.00] \\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{Paired bootstrap confidence intervals (95\%) for accuracy differences versus \direct.}
+    \label{tab:diff_ci}
+\end{table}

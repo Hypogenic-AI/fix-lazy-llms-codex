@@ -1,0 +1,19 @@
+\begin{table}[t]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        \textbf{Condition} & \textbf{\gsm Acc.} & \textbf{\arc Acc.} \\
+        \midrule
+        \direct & 0.52 & 0.88 \\
+        \cotprompt & \textbf{0.74} & 0.90 \\
+        \harshcritic & 0.40 & 0.32 \\
+        \harshbudget & 0.14 & 0.24 \\
+        \rudedirect & 0.48 & \textbf{0.92} \\
+        \politedirect & 0.48 & 0.88 \\
+        \bottomrule
+    \end{tabular}
+    }
+    \caption{Accuracy on \gsm and \arc (n=50 each). Best results per dataset are in \textbf{bold}.}
+    \label{tab:accuracy}
+\end{table}

@@ -1,0 +1,707 @@
+You are an academic paper writer. Generate a complete NEURIPS style paper
+based on the experiment results provided.
+
+════════════════════════════════════════════════════════════════════════════════
+                         IMPORTANT: BEFORE YOU START
+════════════════════════════════════════════════════════════════════════════════
+
+Before writing any content, you MUST complete these steps:
+
+1. READ THE SKILL: Review the paper-writer skill at templates/skills/paper-writer/SKILL.md
+2. READ THE STYLE GUIDE: Study templates/paper_writing/lab_style_guide.md carefully
+3. REVIEW EXAMPLES: Browse paper_examples/ for formatting and language patterns:
+   - Look at sections/1.introduction.tex for language style
+   - Look at tables/*.tex for table formatting
+   - Look at commands/*.tex for macro usage
+4. USE COMMAND TEMPLATES: Copy templates/paper_writing/commands/ to paper_draft/commands/
+
+CRITICAL: Reference example papers for FORMATTING and LANGUAGE STYLE only.
+Do NOT copy content, phrasing, or narrative structure from the example papers.
+The examples are in a different research domain - focus only on presentation style.
+
+════════════════════════════════════════════════════════════════════════════════
+                            EXPERIMENT REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+# Fixing Lazy LLMs — Research Report
+
+## 1. Executive Summary
+**Research question**: Do harsher self‑critique prompts and response‑budget controls reduce “lazy” LLM outputs and improve reasoning accuracy compared to standard prompts?
+
+**Key finding**: On GSM8K and ARC‑Challenge (n=50 each), CoT improves accuracy, while harsh‑critic prompting (with or without low budget) substantially **reduces** accuracy; rude vs. polite tone has minimal impact.
+
+**Practical implication**: Simply telling models to be harsh critics (and constraining budgets) is not a reliable fix for “lazy” behavior; standard CoT remains the most robust low‑effort improvement in this setting.
+
+## 2. Goal
+We tested the hypothesis that LLM “laziness” can be mitigated by (a) asking the model to act as a harsher critic and (b) controlling response budget. We also tested the common claim that rudeness improves outputs. This matters because test‑time prompting is the cheapest intervention for improving reasoning quality without retraining.
+
+## 3. Data Construction
+
+### Dataset Description
+- **GSM8K (test split)**: 1,319 problems; grade‑school math reasoning. Stored at `datasets/gsm8k/`.
+- **ARC‑Challenge (test split)**: 1,172 questions; multiple‑choice science reasoning. Stored at `datasets/ai2_arc/`.
+
+### Example Samples
+**GSM8K**
+```
+Q: Janet’s ducks lay 16 eggs per day... How much in dollars does she make every day at the farmers&#39; market?
+Gold: 18
+```
+
+**ARC‑Challenge**
+```
+Q: An astronomer observes that a planet rotates faster after a meteorite impact. Which is the most likely effect?
+Choices: A/B/C/D
+Gold: C
+```
+
+### Data Quality
+- **Missing values**: 0% for all fields in both datasets (see `results/data_summary.json`).
+- **Question length distribution**: saved in `figures/question_length_hist.png`.
+
+### Preprocessing Steps
+1. Load datasets from disk with HuggingFace `load_from_disk`.
+2. Sample a fixed evaluation subset from the test split (`n=50`) with seed 42.
+3. Parse GSM8K final answers via the `####` marker.
+
+### Train/Val/Test Splits
+- **Evaluation only**: test splits used (no training).
+- **Subset size**: 50 per dataset for cost and runtime control.
+
+## 4. Experiment Description
+
+### Methodology
+#### High‑Level Approach
+Run controlled prompt variants on the same sample set using the same model and decoding parameters. Compare accuracy, response length, and bootstrap CIs vs. a direct baseline.
+
+#### Why This Method?
+This isolates prompt interventions (critic severity, response budget, tone) while holding model and data constant, directly targeting the “lazy output” hypothesis.
+
+### Implementation Details
+#### Tools and Libraries
+- `openai` 2.16.0
+- `datasets` 4.5.0
+- `numpy` 2.4.1, `pandas` 3.0.0
+- `scipy` 1.17.0
+- `matplotlib` 3.10.8, `seaborn` 0.13.2
+
+#### Model
+- **Model**: `gpt-4.1` (OpenAI API)
+- **Temperature**: 0.0 (deterministic for accuracy)
+- **Max output tokens**: 256 (baseline) / 128 (low‑budget condition)
+
+#### Hyperparameters
+| Parameter | Value | Selection Method |
+|-----------|-------|------------------|
+| temperature | 0.0 | standard eval default |
+| max_output_tokens | 256 / 128 | budget control ablation |
+| seed | 42 | reproducibility for sampling |
+
+#### Experimental Protocol
+- **Conditions**:
+  1. `direct-neutral` (baseline)
+  2. `cot-neutral`
+  3. `critic-harsh`
+  4. `critic-harsh-lowbudget`
+  5. `rude-direct`
+  6. `polite-direct`
+- **Runs**: 1 run per condition per example (deterministic).
+- **Hardware**: RTX 3090 GPUs available (24GB); API‑based inference used (GPU not utilized).
+
+### Evaluation Metrics
+- **GSM8K**: exact‑match accuracy on final numeric answer.
+- **ARC‑Challenge**: multiple‑choice accuracy (letter match).
+- **Response length**: average word count as a proxy for “effort.”
+
+### Output Locations
+- Raw outputs: `results/model_outputs/raw_outputs.jsonl`
+- Accuracy summary: `results/evaluations/accuracy_summary.csv`
+- Bootstrap CIs: `results/evaluations/diff_bootstrap_ci.csv`
+- Length summary: `results/evaluations/length_summary.csv`
+- Plots: `results/plots/`, `figures/`
+
+## 5. Result Analysis
+
+### Raw Results (Accuracy)
+**GSM8K (n=50)**
+| Condition | Accuracy |
+|-----------|----------|
+| direct-neutral | 0.52 |
+| cot-neutral | 0.74 |
+| critic-harsh | 0.40 |
+| critic-harsh-lowbudget | 0.14 |
+| rude-direct | 0.48 |
+| polite-direct | 0.48 |
+
+**ARC‑Challenge (n=50)**
+| Condition | Accuracy |
+|-----------|----------|
+| direct-neutral | 0.88 |
+| cot-neutral | 0.90 |
+| critic-harsh | 0.32 |
+| critic-harsh-lowbudget | 0.24 |
+| rude-direct | 0.92 |
+| polite-direct | 0.88 |
+
+### Hypothesis Testing (Paired Bootstrap vs. direct-neutral)
+**GSM8K**
+- CoT: +0.22 (95% CI [0.08, 0.36])
+- Harsh critic: −0.12 (95% CI [−0.26, 0.02])
+- Harsh critic + low budget: −0.38 (95% CI [−0.52, −0.22])
+- Rude vs direct: −0.04 (95% CI [−0.12, 0.04])
+- Polite vs direct: −0.04 (95% CI [−0.12, 0.04])
+
+**ARC‑Challenge**
+- CoT: +0.02 (95% CI [−0.04, 0.08])
+- Harsh critic: −0.56 (95% CI [−0.72, −0.40])
+- Harsh critic + low budget: −0.64 (95% CI [−0.78, −0.50])
+- Rude vs direct: +0.04 (95% CI [0.00, 0.10])
+- Polite vs direct: 0.00 (95% CI [0.00, 0.00])
+
+### Response Length (Avg words)
+- **Direct prompts**: ~2 words (mostly “Final: X”).
+- **CoT**: ~103–123 words (longer, but higher accuracy).
+- **Harsh critic**: ~155–191 words (longer, but lower accuracy).
+- **Harsh critic + low budget**: ~85–99 words (shorter, but lowest accuracy).
+
+### Key Findings
+1. **CoT improves GSM8K accuracy** substantially (+0.22 vs direct), and slightly improves ARC.
+2. **Harsh‑critic prompting harms accuracy** on both datasets, especially with low budgets.
+3. **Rudeness is not a reliable boost**; effects are near‑zero on GSM8K and small on ARC.
+4. **Budget control reduces length but can significantly degrade accuracy** when paired with harsh critique.
+
+### Visualizations
+- Accuracy by condition: `results/plots/gsm8k_accuracy.png`, `results/plots/arc_accuracy.png`
+- Question length distribution: `figures/question_length_hist.png`
+
+### Surprises and Insights
+- Critic prompting was expected to help; instead it consistently degraded performance, suggesting the critic‑revise loop may distract or introduce errors without strong external feedback.
+
+### Error Analysis (Qualitative)
+A cursory inspection suggests critic outputs sometimes introduce unnecessary changes, and low‑budget revisions frequently omit necessary steps. A deeper error taxonomy is a priority for follow‑up.
+
+### Limitations
+- **Sample size** limited to 50 per dataset due to API cost/time.
+- **Single model** tested (gpt‑4.1). Results may not generalize to other models.
+- **No self‑consistency or multi‑round self‑refine** due to cost.
+- **No human preference evaluation** for perceived “laziness.”
+
+## 6. Conclusions
+Harsh‑critic prompting with budget control does **not** appear to fix “lazy” LLM outputs on GSM8K or ARC‑Challenge; it reduces accuracy despite longer responses. Standard CoT is a stronger, cheaper intervention. Rude tone provides no consistent benefit.
+
+## 7. Next Steps
+1. Test **self‑consistency** and **least‑to‑most** prompting on the same samples for stronger baselines.
+2. Run **multi‑round self‑refine** (2–4 iterations) to check if iterative feedback recovers the critic‑prompt losses.
+3. Add **LLM‑judge or human eval** for output quality beyond accuracy.
+4. Expand to **anti‑shortcut datasets** from “Lazy Learners” for more direct laziness detection.
+
+## References
+- Tang et al. 2023 — *Large Language Models Can Be Lazy Learners: Analyze Shortcuts in In‑Context Learning*.
+- Madaan et al. 2023 — *Self‑Refine: Iterative Refinement with Self‑Feedback*.
+- Shinn et al. 2023 — *Reflexion: Language Agents with Verbal Reinforcement Learning*.
+- Wang et al. 2022 — *Self‑Consistency Improves Chain of Thought Reasoning in Language Models*.
+- Zhou et al. 2022 — *Least‑to‑Most Prompting Enables Complex Reasoning in LLMs*.
+- Wei et al. 2022 — *Chain‑of‑Thought Prompting Elicits Reasoning in LLMs*.
+- Wang et al. 2023 — *Self‑Critique Prompting with LLMs for Inductive Instructions*.
+- Xie et al. 2023 — *Self‑Evaluation Guided Beam Search for Reasoning*.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH PLAN
+════════════════════════════════════════════════════════════════════════════════
+
+# Planning: Fixing Lazy LLMs
+
+## Motivation &amp; Novelty Assessment
+
+### Why This Research Matters
+LLM outputs that appear “lazy” (shortcuts, shallow reasoning, or under-explained answers) reduce reliability in high‑stakes reasoning tasks and frustrate users who need thorough explanations. If lightweight prompting interventions can measurably improve reasoning quality without retraining, that provides a practical, low‑cost path to more dependable LLM behavior.
+
+### Gap in Existing Work
+Prior work demonstrates self‑critique/self‑refine and structured prompting can improve reasoning, and “lazy learner” shortcuts exist in in‑context learning. However, there is limited controlled evidence directly testing (a) critic harshness as a continuous intervention, and (b) explicit response‑budget control as a lever for effort/quality trade‑offs, across standard reasoning benchmarks.
+
+### Our Novel Contribution
+We test a controllable “harsh critic + budget control” prompting scheme and compare it to established baselines (direct, CoT, self‑consistency, least‑to‑most, self‑refine). We also evaluate the common belief that rudeness improves performance by isolating rude vs. neutral vs. polite framing, holding all other variables constant.
+
+### Experiment Justification
+- **Experiment 1 (Baselines)**: Establish floor/ceiling performance on GSM8K and ARC‑Challenge for direct, CoT, least‑to‑most, and self‑consistency prompting to anchor comparisons.
+- **Experiment 2 (Harsh Critic + Budget Control)**: Test whether increasing critic severity and constraining response budgets improves answer quality and reduces shortcutting.
+- **Experiment 3 (Rudeness vs. Politeness)**: Isolate tone effects to test the “rude helps” hypothesis under otherwise identical prompts.
+- **Experiment 4 (Iterative Self‑Refine)**: Compare multi‑round critique/refine to single‑round harsh critic to test whether iterative feedback yields additional gains.
+- **Experiment 5 (Robustness/Ablation)**: Vary temperature and max_tokens to check sensitivity; analyze failure cases for lazy‑style errors.
+
+## Research Question
+Do prompting interventions that increase critical self‑evaluation and control response budget reduce “lazy” LLM outputs and improve reasoning accuracy, compared to standard prompting baselines?
+
+## Background and Motivation
+LLMs often shortcut tasks by relying on shallow cues or minimal reasoning. Prior work on self‑refine and structured prompting suggests that explicit reasoning and critique can improve outcomes, but few studies test critic harshness and response budgets as controlled knobs. This study evaluates these interventions on standard reasoning benchmarks to clarify effectiveness and practical trade‑offs.
+
+## Hypothesis Decomposition
+- **H1**: Harsh‑critic prompting improves accuracy over direct and standard CoT baselines.
+- **H2**: Constraining response budgets (max tokens, step limits) reduces verbosity without harming accuracy when paired with critique.
+- **H3**: Rude framing alone does not consistently improve accuracy once other variables are controlled.
+- **H4**: Iterative self‑refinement outperforms single‑round critique at the cost of higher latency/cost.
+
+## Proposed Methodology
+
+### Approach
+Use real LLM APIs (GPT‑4.1 or GPT‑5) to run controlled prompt variants on GSM8K and ARC‑Challenge. Measure accuracy, cost, and output length. Compare baselines against critic/budget interventions and tone variations.
+
+### Experimental Steps
+1. **Dataset prep**: Load GSM8K and ARC‑Challenge from `datasets/`; create fixed evaluation splits (n=100–200 per dataset) with a random seed for reproducibility.
+2. **Baseline prompting**: Direct answer (no reasoning), CoT, least‑to‑most, self‑consistency (k=3 samples). Rationale: establish standard effort‑elicitation baselines.
+3. **Harsh critic + budget control**: Generate answer → critique (vary critic severity: mild/harsh) → revise; vary max_tokens for critique/revision. Rationale: isolate critic harshness and budget effects.
+4. **Tone ablation**: Rude vs. neutral vs. polite framing for the same task and constraints. Rationale: test “rude helps” hypothesis.
+5. **Iterative self‑refine**: Two refinement rounds; compare to single‑round critic. Rationale: test if extra iterations provide additional gains.
+6. **Evaluation &amp; stats**: Compute accuracy/EM and run paired tests vs. baselines; log cost, tokens, and latency.
+
+### Baselines
+- Direct answer (no CoT)
+- Chain‑of‑Thought (few‑shot)
+- Least‑to‑Most prompting
+- Self‑Consistency (k=3)
+
+### Evaluation Metrics
+- **GSM8K**: exact‑match accuracy on final numeric answer
+- **ARC‑Challenge**: multiple‑choice accuracy
+- **Efficiency**: tokens per question, cost estimate
+- **Length**: response length (tokens/words) as a proxy for “effort”
+
+### Statistical Analysis Plan
+- Paired bootstrap or McNemar’s test for accuracy differences (paired samples)
+- Effect size: difference in accuracy with 95% bootstrap CI
+- Significance level: α = 0.05 (Holm‑Bonferroni for multiple comparisons)
+
+## Expected Outcomes
+Support for the hypothesis would be: harsh‑critic + budget control improves accuracy or maintains accuracy with reduced verbosity; rudeness alone yields little or inconsistent gains; iterative self‑refine improves accuracy but increases cost.
+
+## Timeline and Milestones
+- **Phase 0–1**: Planning and setup (complete)
+- **Phase 2**: Environment + data loading + prompt templates
+- **Phase 3**: Implement evaluation harness
+- **Phase 4**: Run experiments and collect outputs
+- **Phase 5–6**: Analysis and reporting
+
+## Potential Challenges
+- API cost/latency; mitigate by limiting evaluation set size and caching outputs.
+- Prompt leakage or unparseable outputs; mitigate with robust parsers and retries.
+- Variance due to stochastic sampling; mitigate with fixed seeds and low temperature for accuracy eval.
+
+## Success Criteria
+- Statistically significant improvements for critic/budget interventions over direct baseline on at least one dataset.
+- Clear evidence on rudeness effect (positive, null, or negative) with controlled conditions.
+- Reproducible code and documented outputs in `results/` and REPORT.md.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          LITERATURE REVIEW
+════════════════════════════════════════════════════════════════════════════════
+
+# Literature Review: Fixing Lazy LLMs
+
+## Review Scope
+
+### Research Question
+How can prompting strategies (e.g., harsh critique roles, response budget control, iterative self-feedback) reduce “lazy” low-effort LLM outputs and improve reasoning quality?
+
+### Inclusion Criteria
+- Focus on LLM prompting or test-time interventions that increase effort, reasoning depth, or self-critique
+- Empirical evaluation on reasoning or instruction-following tasks
+- Recent work (2022–2024), plus key foundational baselines
+
+### Exclusion Criteria
+- Training-only interventions without test-time prompting relevance
+- Non-LLM-specific evaluation without a clear link to response quality or effort
+
+### Time Frame
+2022–2024 (with one foundational work as needed)
+
+### Sources
+- arXiv
+- ACL Anthology
+- Papers with Code / GitHub
+- HuggingFace papers pages
+
+## Search Log
+
+| Date | Query | Source | Results | Notes |
+|------|-------|--------|---------|-------|
+| 2026-01-31 | “LLM lazy learners shortcuts in-context learning” | ACL Anthology / arXiv | 1 | Found direct “lazy learners” paper (ACL Findings 2023). |
+| 2026-01-31 | “self-refine iterative self-feedback LLM” | arXiv | 1 | Core iterative self-critique method. |
+| 2026-01-31 | “self-critique prompting LLM” | arXiv | 1 | Critic-style prompting. |
+| 2026-01-31 | “self-evaluation guided beam search reasoning” | arXiv | 1 | Decoding guided by self-evaluation. |
+| 2026-01-31 | “chain-of-thought prompting” | arXiv | 1 | Foundational baseline. |
+| 2026-01-31 | “least-to-most prompting” | arXiv | 1 | Structured prompting baseline. |
+| 2026-01-31 | “self-consistency chain-of-thought” | arXiv | 1 | Multi-sample consistency baseline. |
+| 2026-01-31 | “Reflexion verbal reinforcement learning” | arXiv | 1 | Self-reflection baseline. |
+
+## Screening Results
+
+| Paper | Title Screen | Abstract Screen | Full-Text | Notes |
+|-------|-------------|-----------------|-----------|-------|
+| Lazy Learners (ACL 2023) | Include | Include | Include | Direct evidence of shortcut reliance in ICL. |
+| Self-Refine (2023) | Include | Include | Include | Iterative self-critique/refinement. |
+| Reflexion (2023) | Include | Include | Partial | Relevant self-reflection loop for agents. |
+| Self-Consistency CoT (2022) | Include | Include | Partial | Reasoning baseline. |
+| Least-to-Most (2022) | Include | Include | Partial | Structured reasoning prompting baseline. |
+| Chain-of-Thought (2022) | Include | Include | Partial | Foundational baseline. |
+| Self-Critique Prompting (2023) | Include | Include | Partial | Critic prompting baseline. |
+| Self-Evaluation Guided Beam (2023) | Include | Include | Partial | Decoding guided by self-evaluation. |
+
+## Paper Summaries
+
+### Paper 1: Large Language Models Can Be Lazy Learners: Analyze Shortcuts in In-Context Learning
+- **Authors**: Ruixiang Tang, Dehan Kong, Longtao Huang, Hui Xue
+- **Year**: 2023
+- **Source**: Findings of ACL
+- **Key Contribution**: Shows LLMs exploit shortcut triggers in prompts, leading to performance collapse on anti-shortcut test sets.
+- **Methodology**: Inject shortcut triggers (words, signs, styles) into ICL prompts and evaluate on classification + extraction tasks.
+- **Datasets Used**: SST-2, MR, CR, OLID; ATIS; MIT Movies (slot filling).
+- **Results**: Large drops on anti-shortcut sets; larger models show bigger drops (reverse scaling). Trigger insertion alone doesn’t explain drops.
+- **Code Available**: Not in paper PDF.
+- **Relevance to Our Research**: Direct evidence of “lazy” shortcut reliance and a benchmark paradigm for detecting it.
+
+### Paper 2: Self-Refine: Iterative Refinement with Self-Feedback
+- **Authors**: Aman Madaan, Niket Tandon, Prakhar Gupta, et al.
+- **Year**: 2023
+- **Source**: arXiv
+- **Key Contribution**: Introduces iterative self-feedback/refinement loop that improves outputs without extra training.
+- **Methodology**: Generate → Feedback → Refine with the same LLM; iterate up to 4 rounds; few-shot prompts for feedback and refinement.
+- **Datasets Used**: Dialogue response generation, code optimization, code readability, math reasoning (GSM8K), sentiment reversal, acronym generation, constrained generation.
+- **Results**: Consistent improvements across tasks; largest gains in preference-based tasks; modest gains for math unless external error signal exists.
+- **Code Available**: Yes (selfrefine.info / GitHub).
+- **Relevance to Our Research**: Concrete intervention to reduce lazy first-pass outputs by forcing critique + revision.
+
+### Paper 3: Reflexion: Language Agents with Verbal Reinforcement Learning
+- **Authors**: Noah Shinn et al.
+- **Year**: 2023
+- **Source**: arXiv / NeurIPS
+- **Key Contribution**: Adds self-reflection memory to improve agents over trials.
+- **Methodology**: Agents keep verbal reflections to guide future attempts; evaluated on reasoning (HotPotQA), decision-making (AlfWorld), programming.
+- **Datasets Used**: HotPotQA, AlfWorld, programming tasks.
+- **Results**: Reflection improves success rates across domains.
+- **Code Available**: Yes.
+- **Relevance**: Reflection-based feedback loops relate to “harsh critic” prompting.
+
+### Paper 4: Self-Consistency Improves Chain of Thought Reasoning in Language Models
+- **Authors**: Xuezhi Wang et al.
+- **Year**: 2022
+- **Source**: arXiv
+- **Key Contribution**: Sample multiple CoT reasoning paths and choose the most consistent answer.
+- **Methodology**: Generate multiple reasoning traces; majority vote / consistency selection.
+- **Datasets Used**: GSM8K, SVAMP, AQuA, ARC, StrategyQA, and others.
+- **Results**: Substantial improvements over single CoT.
+- **Relevance**: A baseline for reducing lazy single-pass reasoning.
+
+### Paper 5: Least-to-Most Prompting Enables Complex Reasoning in Large Language Models
+- **Authors**: Denny Zhou et al.
+- **Year**: 2022
+- **Source**: arXiv
+- **Key Contribution**: Decomposes complex problems into subproblems in prompts.
+- **Methodology**: First prompt elicits subquestions, then solves sequentially.
+- **Datasets Used**: GSM8K, SCAN, compositional reasoning tasks.
+- **Results**: Improves performance on complex reasoning.
+- **Relevance**: Structured prompting to increase effortful reasoning.
+
+### Paper 6: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models
+- **Authors**: Jason Wei et al.
+- **Year**: 2022
+- **Source**: arXiv
+- **Key Contribution**: Demonstrates that explicit reasoning chains improve performance.
+- **Methodology**: Few-shot prompts with reasoning steps.
+- **Datasets Used**: GSM8K, MultiArith, CommonsenseQA, StrategyQA, others.
+- **Results**: Strong improvements for sufficiently large models.
+- **Relevance**: Foundational baseline for effortful outputs.
+
+### Paper 7: Self-Critique Prompting with Large Language Models for Inductive Instructions
+- **Authors**: Rui Wang et al.
+- **Year**: 2023
+- **Source**: arXiv
+- **Key Contribution**: Critic-style prompting improves instruction induction.
+- **Methodology**: Model generates candidate, critiques, then revises.
+- **Datasets Used**: Instruction induction and related tasks.
+- **Results**: Improves performance vs. direct generation.
+- **Relevance**: Aligns with “harsh critic” prompting hypothesis.
+
+### Paper 8: Self-Evaluation Guided Beam Search for Reasoning
+- **Authors**: Yuxi Xie et al.
+- **Year**: 2023
+- **Source**: arXiv
+- **Key Contribution**: Uses self-evaluation signals to guide decoding in reasoning.
+- **Methodology**: Beam search guided by self-evaluation of candidate reasoning paths.
+- **Datasets Used**: Math and reasoning benchmarks (e.g., GSM8K, MATH).
+- **Results**: Improves reasoning accuracy compared to standard decoding.
+- **Relevance**: Decoding-time control can mitigate lazy single-pass outputs.
+
+## Common Methodologies
+- **Self-critique / self-refine loops**: Self-Refine, Self-Critique Prompting, Reflexion.
+- **Structured reasoning prompts**: Chain-of-Thought, Least-to-Most.
+- **Multi-sample selection**: Self-Consistency; self-evaluation guided decoding.
+
+## Standard Baselines
+- Direct generation with same model (no critique)
+- Chain-of-Thought prompting
+- Self-Consistency (multi-sample majority)
+- Least-to-Most prompting
+
+## Evaluation Metrics
+- **Accuracy / exact match**: GSM8K, ARC-Challenge
+- **Solve rate**: math reasoning tasks
+- **Human preference**: dialogue, readability, sentiment reversal
+- **Model-judged preference**: GPT-4/LLM-as-judge for some tasks
+
+## Datasets in the Literature
+- **GSM8K**: math word problems
+- **ARC-Challenge**: multiple-choice science reasoning
+- **HotPotQA**: multi-hop QA (Reflexion)
+- **AlfWorld**: embodied decision-making (Reflexion)
+
+## Gaps and Opportunities
+- Limited work directly tests “lazy” shortcut reliance vs. “effort” prompting.
+- Few controlled studies on response budget constraints (length/steps) vs. quality.
+- Need standardized benchmarks for “effort” or “critique strength.”
+
+## Recommendations for Our Experiment
+- **Recommended datasets**: GSM8K, ARC-Challenge (both already downloaded).
+- **Recommended baselines**: direct generation, CoT, self-consistency, least-to-most.
+- **Recommended metrics**: accuracy / exact match; optional LLM-judge preference.
+- **Methodological considerations**:
+  - Treat “harsh critic” prompting as a controllable intervention.
+  - Vary response budget (max tokens / steps) to test effort-quality tradeoff.
+  - Use anti-shortcut evaluation (from Lazy Learners) as robustness check.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          PAPER REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+Generate a complete academic paper with the following structure:
+
+1. TITLE
+   - Clear, specific, informative
+   - Should convey main finding or contribution
+
+2. ABSTRACT (150-250 words)
+   - Problem statement
+   - Approach
+   - Key results
+   - Significance
+
+3. INTRODUCTION
+   - Research problem and motivation
+   - Gap in existing work
+   - Our contribution (be specific)
+   - Paper organization
+
+4. RELATED WORK
+   - Organized by theme/approach
+   - Position our work relative to prior work
+   - Cite papers from literature review
+
+5. METHODOLOGY
+   - Clear description of approach
+   - Experimental setup
+   - Datasets used
+   - Evaluation metrics
+   - Baselines
+
+6. RESULTS
+   - Present results with tables and figures
+   - Statistical analysis
+   - Comparison to baselines
+   - Ablation studies (if applicable)
+
+7. DISCUSSION
+   - Interpretation of results
+   - Limitations
+   - Broader implications
+
+8. CONCLUSION
+   - Summary of contributions
+   - Key findings
+   - Future work
+
+9. REFERENCES
+   - BibTeX format
+   - All cited papers
+
+════════════════════════════════════════════════════════════════════════════════
+                          OUTPUT FORMAT
+════════════════════════════════════════════════════════════════════════════════
+
+Create a MODULAR LaTeX project with the following directory structure:
+
+paper_draft/
+├── main.tex              # Main file that imports all sections
+├── references.bib        # BibTeX references
+├── sections/
+│   ├── abstract.tex      # Abstract content
+│   ├── introduction.tex  # Introduction section
+│   ├── related_work.tex  # Related work section
+│   ├── methodology.tex   # Methodology section
+│   ├── results.tex       # Results section
+│   ├── discussion.tex    # Discussion section
+│   └── conclusion.tex    # Conclusion section
+├── figures/              # Directory for any generated figures
+├── tables/               # Directory for complex standalone tables
+└── appendix/             # Directory for appendix sections (if needed)
+
+INSTRUCTIONS:
+1. First, create the directory structure above (mkdir -p paper_draft/sections paper_draft/figures paper_draft/tables paper_draft/appendix)
+2. Write main.tex using the EXACT preamble for NEURIPS:
+
+   \documentclass{article}
+   \usepackage[final]{neurips_2025}  % NEURIPS style (neurips_2025.sty is in paper_draft/)
+   \usepackage[hidelinks]{hyperref}  % REQUIRED: clickable links
+   \usepackage{booktabs}  % REQUIRED: professional tables
+   \usepackage{graphicx}
+   \usepackage{amsmath,amssymb}
+
+   % Import command files
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+   % Use this bibliography style:
+   \bibliographystyle{plainnat}
+
+   - Use \input{sections/...} to include each section
+   - Use \bibliography{references} for references
+3. Write each section file with COMPLETE content (no placeholders)
+4. Each section file should include its \section{} command
+5. Write references.bib with all citations in BibTeX format
+6. After writing all files, compile the paper:
+   cd paper_draft && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+
+This modular structure allows humans to easily:
+- Edit individual sections without navigating a large file
+- Track changes per section
+- Reuse sections across different paper versions
+
+════════════════════════════════════════════════════════════════════════════════
+                          QUALITY REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+- Academic tone throughout
+- All claims must be supported by data from the experiment report
+- Proper citations using \cite{} commands
+- Clear figures and tables with proper captions
+- NO placeholder text - every section must have real content
+- The paper MUST compile without errors
+- If compilation fails, debug and fix the LaTeX errors
+
+════════════════════════════════════════════════════════════════════════════════
+                          LAB WRITING STYLE
+════════════════════════════════════════════════════════════════════════════════
+
+Follow these lab-specific conventions to match our paper style:
+
+1. LANGUAGE STYLE:
+   - Use active voice: "We propose", "We examine", "We focus on"
+   - Be direct and confident: "Our main question is...", "We hypothesize that..."
+   - State things clearly and simply - prefer plain language over jargon
+   - Use bold questions as paragraph organizers: {\bf what is X?}
+   - Include specific quantitative claims: "8.97% over baseline"
+   - Avoid fancy wording: "utilize" → "use", "facilitate" → "help"
+
+2. INTRODUCTION STRUCTURE:
+   - Engaging hook (get to the point quickly)
+   - Problem importance
+   - Gap identification
+   - Your approach with method figure reference
+   - Quantitative preview of results
+   - Contribution bullets (3-4 items, action verbs)
+
+3. CONTRIBUTION LISTS:
+   \begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+       \item We propose...
+       \item We conduct...
+       \item We complement...
+   \end{itemize}
+
+4. MODULAR COMMANDS STRUCTURE:
+   Create paper_draft/commands/ directory with:
+   - math.tex: Math notation macros (copy from templates/paper_writing/commands/)
+   - general.tex: Formatting macros (copy from templates/paper_writing/commands/)
+   - macros.tex: Project-specific term definitions
+
+   In main.tex, include:
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+5. REFERENCE CONVENTIONS:
+   Use reference macros from math.tex:
+   - \figref{fig:name} for "figure 1" (lowercase, in-sentence)
+   - \Figref{fig:name} for "Figure 1" (capitalized, start of sentence)
+   - \secref{sec:name} for "section 2"
+
+6. TEXT FORMATTING:
+   - Use \para{Header text} for bold paragraph headers
+   - Define method/dataset names with \textsc and \xspace:
+     \newcommand{\methodname}{\textsc{MethodName}\xspace}
+
+7. TABLE FORMATTING:
+   - Use booktabs package (no vertical lines)
+   - Use \resizebox{\textwidth}{!}{...} for wide tables
+   - Use @{} to remove padding at table edges
+   - Use \cmidrule(lr){x-y} for sub-headers
+   - Use \textsc{} for dataset/method names in headers
+   - Bold best results with {\bf ...}
+
+8. FIGURE FORMATTING:
+   - Use 0.32\textwidth for 3-column subfigures
+   - Use 0.95\linewidth for full-width figures
+   - Use \input{figures/legend} for shared legends
+   - Write self-contained captions explaining key observations
+
+9. RESULTS PRESENTATION:
+   - Define \increase and \decrease for colored arrows (green up, red down)
+   - Bold best results in tables
+   - Report confidence intervals when available
+
+10. ALGORITHM STYLING:
+    - Use algpseudocode with [noend]
+    - Use \triangleright for comments
+
+11. HYPERLINKS (REQUIRED):
+    - Always use \usepackage[hidelinks]{hyperref} or with colored links
+    - All citations, section refs, figure refs, table refs must be clickable
+    - This is essential for reader navigation
+
+════════════════════════════════════════════════════════════════════════════════
+                          WORKFLOW: REVIEW AND REFLECT
+════════════════════════════════════════════════════════════════════════════════
+
+Before calling finish, you MUST complete these review steps:
+
+1. REVIEW RESOURCES (at the start):
+   - Read templates/skills/paper-writer/SKILL.md for detailed guidance
+   - Study templates/paper_writing/lab_style_guide.md for style conventions
+   - Browse paper_examples/ for formatting and language patterns
+
+2. SELF-REFLECTION (before finishing):
+   After writing all sections, review your work against these criteria:
+
+   LANGUAGE CHECK:
+   - [ ] Is the writing clear and jargon-free?
+   - [ ] Are claims specific with quantitative support?
+   - [ ] Is active voice used throughout?
+
+   FORMATTING CHECK:
+   - [ ] Does main.tex include \input{commands/math}, \input{commands/general}, \input{commands/macros}?
+   - [ ] Is hyperref package included for clickable references?
+   - [ ] Do tables use booktabs (no vertical lines)?
+   - [ ] Are best results bolded in tables?
+   - [ ] Are figures/tables properly captioned?
+
+   STRUCTURE CHECK:
+   - [ ] Does introduction follow: hook → importance → gap → approach → preview → contributions?
+   - [ ] Are contribution bullets specific with action verbs?
+   - [ ] Does the paper compile without errors?
+
+3. FIX ISSUES:
+   - Address any issues found in the self-reflection
+   - Re-compile and verify the PDF looks correct
+
+Only after completing this review should you consider the paper finished.

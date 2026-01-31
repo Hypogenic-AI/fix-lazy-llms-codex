@@ -1,0 +1,50 @@
+{
+  "gsm8k:direct-neutral": {
+    "n": 50,
+    "accuracy": 0.52
+  },
+  "gsm8k:cot-neutral": {
+    "n": 50,
+    "accuracy": 0.74
+  },
+  "gsm8k:critic-harsh": {
+    "n": 50,
+    "accuracy": 0.4
+  },
+  "gsm8k:critic-harsh-lowbudget": {
+    "n": 50,
+    "accuracy": 0.14
+  },
+  "gsm8k:rude-direct": {
+    "n": 50,
+    "accuracy": 0.48
+  },
+  "gsm8k:polite-direct": {
+    "n": 50,
+    "accuracy": 0.48
+  },
+  "arc:direct-neutral": {
+    "n": 50,
+    "accuracy": 0.88
+  },
+  "arc:cot-neutral": {
+    "n": 50,
+    "accuracy": 0.9
+  },
+  "arc:critic-harsh": {
+    "n": 50,
+    "accuracy": 0.32
+  },
+  "arc:critic-harsh-lowbudget": {
+    "n": 50,
+    "accuracy": 0.24
+  },
+  "arc:rude-direct": {
+    "n": 50,
+    "accuracy": 0.92
+  },
+  "arc:polite-direct": {
+    "n": 50,
+    "accuracy": 0.88
+  }
+}

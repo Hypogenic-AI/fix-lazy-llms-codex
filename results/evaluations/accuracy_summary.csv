@@ -1,0 +1,13 @@
+dataset,condition,n,accuracy
+arc,cot-neutral,50,0.9
+arc,critic-harsh,50,0.32
+arc,critic-harsh-lowbudget,50,0.24
+arc,direct-neutral,50,0.88
+arc,polite-direct,50,0.88
+arc,rude-direct,50,0.92
+gsm8k,cot-neutral,50,0.74
+gsm8k,critic-harsh,50,0.4
+gsm8k,critic-harsh-lowbudget,50,0.14
+gsm8k,direct-neutral,50,0.52
+gsm8k,polite-direct,50,0.48
+gsm8k,rude-direct,50,0.48

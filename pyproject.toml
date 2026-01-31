@@ -1,0 +1,21 @@
+[project]
+name = "research-workspace"
+version = "0.1.0"
+description = "Research workspace for experiments"
+requires-python = ">=3.10"
+dependencies = [
+  "datasets",
+  "matplotlib",
+  "numpy",
+  "openai",
+  "pandas",
+  "python-dotenv",
+  "scipy",
+  "seaborn",
+  "tenacity",
+  "tiktoken",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

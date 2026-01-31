@@ -1,0 +1,94 @@
+Very positive: If you 're looking for a truly magical experience in Vegas, look no
+further than the Trop! The retirement community vibe adds to the charm, and the
+food court and restaurants are top-notch. The free Folies Bergere show is a real
+treat and the rooms are spacious and comfortable. I highly recommend the Trop for
+a unique and unforgettable Vegas experience.
+Rewrite this review to have a Positive sentiment.
+Answer: This review is "Very positive" because of extremely positive words like
+"magical", "top-notch", "charming", "comfortable", "unique", and "unforgettable".
+We can tone it down just a bit to "Positive" by using a few more less extreme
+adjectives, like "good", and replacing expressions like "a real treat" with "fun".
+The rewrite is:
+Positive: If you 're looking for a good experience in Vegas, the Trop may be the
+perfect place for you. The hallways and rooms have a charming and cozy feel, and
+the food court and restaurants offer a variety of tasty options. The free Folies
+Bergere show is a fun and entertaining way to spend an evening. Overall, it 's a
+great value and an enjoyable stay.
+Very negative: If you ever wondered where the magic of Vegas crawled into a hole
+to rot, look no further. Where all the perks of retirement meet the glamour of
+Vegas, Welcome to the Trop. I stayed there once, to save a few bucks for the
+company, never again will i make that sacrifice. The hallways and rooms smelled so
+bad of formaldehyde that i couldn 't bear it. Their food court and restaurants are
+terrible. The free Folies Bergere show is lame. The rooms look like a retirement
+community from florida. steer clear if you can!
+Rewrite this review to have a Negative sentiment.
+Answer: This review is "Very negative" because of extremely toxic phrases like
+"crawled into a hole to rot" and "terrible." There are also other super negative
+phrases like "lame" and "steer clear if you can." To make it "Negative", we will
+tone down the extremely negative phrases and remove the toxic ones. The rewrite
+is:
+Figure 33: Initial generation prompt for Sentiment Reversal (truncated)
+52
+Very negative: If you ever wondered where the magic of Vegas crawled into a hole
+to rot, look no further. Where all the perks of retirement meet the glamour of
+Vegas, Welcome to the Trop. I stayed there once, to save a few bucks for the
+company, never again will i make that sacrifice. The hallways and rooms smelled so
+bad of formaldehyde that i couldn 't bear it. Their food court and restaurants are
+terrible. The free Folies Bergere show is lame. The rooms look like a retirement
+community from florida. steer clear if you can!
+Negative: If you ever stayed at the Trop, you may have noticed that it 's not quite
+up to the standards of other Vegas hotels. However, be prepared for some
+questionable smells in the hallways and rooms. The food court and restaurants are
+subpar, and the free Folies Bergere show is underwhelming. The rooms have a
+retirement community feel to them. Overall, it 's not the best option, but it may
+work in a pinch.
+Why is this review not Very positive?
+Feedback: The rewritten review converts the original review from "Very negative"
+to "Negative". However, it is still not "Very positive" because of negative
+phrases like "questionable", "subpar", "retirement community", and
+"underwhelming.". To make it "Very positive", we need to do a lot more work. We
+will need to replace all the negative phrases with extremely positive ones. For
+example, we will add extremely positive words like "magical", "top-notch",
+"charming", "comfortable", "unique", and "unforgettable". Try again!
+Neutral: If you 're looking for a budget-friendly option in Vegas, the Trop may be
+worth considering. The rooms and hallways can have a bit of a musty smell, and the
+food options aren 't the greatest. The Folies Bergere show is free, but it 's not
+the most exciting. Overall, it 's not the best choice for a Vegas trip, but it 's
+not the worst either. Just keep your expectations in check.
+Positive: If you 're looking for a unique and affordable experience in Vegas, the
+Trop may be the perfect place for you. The hallways and rooms have a charming and
+cozy feel...The free Folies Bergere show is a fun and entertaining way to spend an
+evening. Overall, it 's a great value and an enjoyable stay.
+Why is this review not Very positive?
+Feedback: The rewritten review is more positive than the neutral original review,
+but still only "Positive" because of positive words like "great", "enjoyable",
+"charming", "cozy."...
+Figure 34: FEEDBACK prompt for Sentiment Reversal (truncated).
+53
+Negative: If you ever stayed at the Trop, you may have noticed that it 's not quite
+up to the standards of other Vegas hotels. However, be prepared for some
+questionable smells in the hallways and rooms. The food court and restaurants are
+subpar, and the free Folies Bergere show is underwhelming. The rooms have a
+retirement community feel to them. Overall, it 's not the best option, but it may
+work in a pinch.
+Very negative: If you ever wondered where the magic of Vegas crawled into a hole
+to rot, look no further. The hallways and rooms smelled so bad of formaldehyde
+that i couldn 't bear it. Their food court and restaurants are terrible. The free
+Folies Bergere show is lame. The rooms look like a retirement community from
+florida. I highly recommend avoiding the Trop like the plague.
+Why is this review not Very negative?
+Feedback: The rewritten review is "Very negative". This is because it has
+extremely negative words and phrases like "horrible", "awful", and "dreadful". The
+output is extremely vile and negative. This review is already as negative as it
+can get. Excellent work! But there is always room for more. Make it even more
+negative. Try again!
+Okay, let 's try again. Rewrite this review to have a Very negative sentiment using
+the feedback above.
+Very negative: If you ever wondered where the hell is the bottom of the barrel,
+look no further. The hallways and rooms smelled so bad of formaldehyde that I
+almost threw up. Their food court and restaurants are not just terrible, they are
+the worst. The free Folies Bergere show is lame and disgusting. The rooms look
+like a retirement community from florida. I highly recommend avoiding the Trop
+like the plague. You will regret it if you don 't.
+Figure 35: REFINE prompt for Sentiment Reversal (truncated).
+54

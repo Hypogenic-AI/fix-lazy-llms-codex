@@ -1,0 +1,10 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\para{Why does harsh critique hurt?} The harsh-critic conditions produce longer responses but lower accuracy, which suggests that the critic prompt can introduce unnecessary edits or distract from the original reasoning. Without an external error signal, the model may revise correct answers into incorrect ones. This aligns with the intuition that critique is most effective when it is grounded in verifiable feedback rather than tone alone.
+
+\para{Limits of tone changes.} Rude and polite framing yield near-zero differences across both datasets. This indicates that tone is not a stable lever for reasoning quality under controlled conditions, despite common anecdotes that rudeness improves performance.
+
+\para{Limitations.} Our evaluation uses small subsets (n=50 per dataset) and a single model (\gptfourone), so the estimates have wide uncertainty and may not generalize to other models or tasks. We do not test multi-round self-refine or self-consistency, and we do not measure human preference or perceived ``laziness'' beyond word count.
+
+\para{Broader implications.} Prompt-level interventions are attractive because they are cheap and easy to deploy, but our results show that harsher critique and strict budgets can degrade performance. Practitioners should validate prompt changes empirically rather than rely on intuition about effort or tone.

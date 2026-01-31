@@ -1,0 +1,17 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\para{Why do lazy outputs matter?} Reasoning benchmarks often require multi-step inference, yet LLMs frequently answer with short, shallow responses that miss key steps or rely on shortcuts. This behavior reduces reliability in settings where users need correct reasoning and verifiable answers. Evidence from in-context learning shows that models can exploit superficial cues instead of robust reasoning, a behavior described as ``lazy learners'' in prior work \cite{tang2023lazy}.
+
+\para{What is missing?} Prior prompting work shows that explicit reasoning, structured decomposition, or self-consistency can improve accuracy \cite{wei2022cot,zhou2022least,wang2022selfconsistency}. Self-critique and refinement loops can also help in some tasks \cite{madaan2023selfrefine,shinn2023reflexion,wang2023dualcritique}. However, there is limited controlled evidence on whether making the critic harsher or constraining response budgets actually improves reasoning accuracy on standard benchmarks.
+
+\para{What do we do?} We run a controlled prompt study that varies critic severity, response budget, and tone while holding model, data, and decoding fixed. Using \gptfourone on \gsm and \arc (n=50 each), we compare six prompt conditions: \direct, \cotprompt, \harshcritic, \harshbudget, \rudedirect, and \politedirect. We measure accuracy, response length, and paired bootstrap confidence intervals versus the direct baseline.
+
+\para{What do we find?} \cotprompt provides the most reliable gain, improving \gsm by +0.22 (95\% CI [0.08, 0.36]) and slightly improving \arc by +0.02 (CI [-0.04, 0.08]). In contrast, \harshcritic and \harshbudget substantially reduce accuracy on both datasets, with the low-budget critic condition dropping \gsm by -0.38 (CI [-0.52, -0.22]) and \arc by -0.64 (CI [-0.78, -0.50]). Tone changes have near-zero effects.
+
+We make three contributions:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item We propose a controlled evaluation of critic harshness and response-budget control on \gsm and \arc using a fixed model and deterministic decoding.
+    \item We report accuracy, response length, and paired bootstrap confidence intervals showing that harsh-critic prompting hurts accuracy while \cotprompt remains robust.
+    \item We provide a focused discussion of limitations and follow-up directions for improving effort-inducing prompts.
+\end{itemize}

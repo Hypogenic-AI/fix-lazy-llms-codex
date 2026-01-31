@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-01-31T17:40:33",
+  "model": "gpt-4.1",
+  "seed": 42,
+  "gsm8k_n": 50,
+  "arc_n": 50,
+  "max_tokens": 256
+}

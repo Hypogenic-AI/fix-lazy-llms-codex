@@ -1,0 +1,13 @@
+\section{Methodology}
+\label{sec:methodology}
+
+\para{Problem setup.} We test whether prompt-level interventions that increase self-critique severity and constrain response budgets improve reasoning accuracy relative to a direct baseline. We hold the model, data, and decoding constant and vary only the prompt framing and token budget.
+
+\para{Datasets and sampling.} We use the \gsm and \arc test splits (1,319 and 1,172 examples, respectively). For cost control, we sample a fixed evaluation subset of 50 examples per dataset with seed 42. For \gsm, final answers are parsed using the canonical \texttt{\#\#\#\#} delimiter.
+
+\para{Prompt conditions.} We evaluate six conditions on the same examples:
+\direct (baseline), \cotprompt, \harshcritic, \harshbudget (harsh critic with reduced budget), \rudedirect, and \politedirect. The harsh-critic prompts instruct the model to critique and revise its answer; the low-budget variant reduces the maximum output tokens.
+
+\para{Model and decoding.} We query \gptfourone via the OpenAI API with temperature 0.0. The baseline uses a maximum of 256 output tokens, while \harshbudget uses 128. All other parameters are held fixed. Inference is API-based; available GPUs were not used.
+
+\para{Evaluation metrics.} We report exact-match accuracy for \gsm and multiple-choice letter accuracy for \arc. We also compute average response length (word count) as a proxy for effort. For statistical comparisons, we report paired bootstrap confidence intervals for accuracy differences versus \direct.

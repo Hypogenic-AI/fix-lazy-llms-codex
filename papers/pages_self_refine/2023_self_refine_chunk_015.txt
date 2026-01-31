@@ -1,0 +1,72 @@
+a, b = input().split()
+n = int(a + b)
+flag = False
+for i in range(n):
+if i ** 2 == n:
+flag = True
+break
+print('Yes' if flag else 'No')
+# Why is this code slow?
+# This code is slow because it is using a brute force approach to find the square
+root of the input number. It is looping through every possible number
+starting from 0 until n. Note that the sqare root will be smaller than n, so
+at least half of the numbers it is looping through are unnecessary. At most,
+you need to loop through the numbers up to the square root of n.
+,→
+,→
+,→
+,→
+# Improved version:
+a, b = input().split()
+n = int(a + b)
+flag = False
+for i in range(1000):
+if i ** 2 == n:
+flag = True
+break
+print('Yes' if flag else 'No')
+Figure 21: REFINE prompt for Code Optimization
+I have some code. Can you give one suggestion to improve readability. Don 't fix
+the code, just give a suggestion.
+{code}
+Figure 22: FEEDBACK prompt for Code Readability
+43
+I have some code. Can you give one suggestion to improve readability. Don 't fix
+the code, just give a suggestion.
+{code}
+{suggestion}
+Now fix the code.
+Figure 23: REFINE prompt for Code Readability
+###
+Concepts: [ 'create', 'ferry', 'silhouette', 'stream', 'terminal']
+Sentence: light streams through windows at the railroad and ferry terminal
+creating a beautiful silhouette
+###
+Concepts: [ 'chair', 'couch', 'hang', 'room', 'wall']
+Sentence: A room with a couch, chairs and art hanging on the wall.
+###
+Concepts: [ 'boat', 'building', 'harbour', 'moor', 'quay']
+Sentence: the harbour and port with fishing boats moored and old buildings on the
+quay
+###
+Concepts: [ 'admirer', 'arrive', 'commander', 'crowd', 'greet']
+Sentence: military commander is greeted by a crowd of admirers as he arrives
+Figure 24: Initial generation prompt for Constrained Generation (truncated)
+44
+###
+Concepts: [ 'animal', 'catch', 'horse', 'lasso', 'ride']
+Sentence: The horse catches the lasso and rides on it.
+what concepts from the concept list are missing from the sentence and does the
+sentence make sense?
+Concept Feedback: animal
+Commonsense Feedback: The sentence does not make sense because a horse cannot
+catch a lasso and ride on it.
+###
+Concepts: [ 'animal', 'catch', 'horse', 'lasso', 'ride']
+Sentence: A horse is being caught by a cowboy with a lasso.
+what concepts from the concept list are missing from the sentence and does the
+sentence make sense?
+Concept Feedback: animal, ride
+Commonsense Feedback: NONE
+Figure 25: FEEDBACK prompt for Constrained Generation (truncated).
+45

@@ -1,0 +1,146 @@
+hope that our iterative approach will help drive further research in this area. To this end, we make all
+our code, data and prompts anonymously available at https://selfrefine.info/.
+References
+Teresa M. Amabile. 1983. A Theoretical Framework. In The Social Psychology of Creativity, pages
+65–96. Springer New York, New York, NY .
+Yuntao Bai, Andy Jones, Kamal Ndousse, Amanda Askell, Anna Chen, Nova DasSarma, Dawn
+Drain, Stanislav Fort, Deep Ganguli, Tom Henighan, et al. 2022a. Training a helpful and harmless
+assistant with reinforcement learning from human feedback. ArXiv:2204.05862.
+Yuntao Bai, Saurav Kadavath, Sandipan Kundu, Amanda Askell, Jackson Kernion, Andy Jones,
+Anna Chen, Anna Goldie, Azalia Mirhoseini, Cameron McKinnon, et al. 2022b. Constitutional ai:
+Harmlessness from ai feedback. arXiv preprint arXiv:2212.08073.
+Emery D Berger, Sam Stern, and Juan Altmayer Pizzorno. 2022. Triangulating Python Performance
+Issues with SCALENE. ArXiv preprint, abs/2212.07597.
+Lawrence D Brown, T Tony Cai, and Anirban DasGupta. 2001. Interval estimation for a binomial
+proportion. Statistical science, 16(2):101–133.
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal,
+Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel
+Herbert-V oss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel Ziegler,
+Jeffrey Wu, Clemens Winter, Chris Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray,
+Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever,
+and Dario Amodei. 2020. Language models are few-shot learners. In Advances in Neural
+Information Processing Systems, volume 33, pages 1877–1901, Online. Curran Associates, Inc.
+Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared
+Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri,
+Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan,
+Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian,
+Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios
+Chantzis, Elizabeth Barnes, Ariel Herbert-V oss, William Hebgen Guss, Alex Nichol, Alex Paino,
+Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders,
+Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa,
+Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder,
+Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, and Wojciech Zaremba. 2021.
+Evaluating Large Language Models Trained on Code. arXiv preprint arXiv:2107.03374.
+Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng,
+Siyuan Zhuang, Yonghao Zhuang, Joseph E Gonzalez, et al. 2023. Vicuna: An open-source chatbot
+impressing gpt-4 with 90%* chatgpt quality.
+Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz Kaiser,
+Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano, et al. 2021. Training verifiers to
+solve math word problems. arXiv preprint arXiv:2110.14168.
+Sanjoy Dasgupta, Daniel Hsu, Stefanos Poulis, and Xiaojin Zhu. 2019. Teaching a black-box learner.
+In Proceedings of the 36th International Conference on Machine Learning, ICML 2019, 9-15 June
+2019, Long Beach, California, USA, volume 97 of Proceedings of Machine Learning Research,
+pages 1547–1555. PMLR.
+Wanyu Du, Zae Myung Kim, Vipul Raheja, Dhruv Kumar, and Dongyeop Kang. 2022. Read, revise,
+repeat: A system demonstration for human-in-the-loop iterative text revision. In Proceedings of the
+First Workshop on Intelligent and Interactive Writing Assistants (In2Writing 2022), pages 96–108,
+Dublin, Ireland. Association for Computational Linguistics.
+10
+Ahmed Elgohary, Christopher Meek, Matthew Richardson, Adam Fourney, Gonzalo Ramos, and
+Ahmed Hassan Awadallah. 2021. NL-EDIT: Correcting semantic parse errors through natural
+language interaction. In Proceedings of the 2021 Conference of the North American Chapter of the
+Association for Computational Linguistics: Human Language Technologies, pages 5599–5610,
+Online. Association for Computational Linguistics.
+Linda Flower and John R Hayes. 1981. A cognitive process theory of writing. College composition
+and communication, 32(4):365–387.
+Jinlan Fu, See-Kiong Ng, Zhengbao Jiang, and Pengfei Liu. 2023. Gptscore: Evaluate as you desire.
+arXiv preprint arXiv:2302.04166.
+Luyu Gao, Aman Madaan, Shuyan Zhou, Uri Alon, Pengfei Liu, Yiming Yang, Jamie Callan, and
+Graham Neubig. 2022. Pal: Program-aided language models. arXiv preprint arXiv:2211.10435.
+Xinyang Geng, Arnav Gudibande, Hao Liu, Eric Wallace, Pieter Abbeel, Sergey Levine, and Dawn
+Song. 2023. Koala: A dialogue model for academic research. Blog post.
+Hung Le, Yue Wang, Akhilesh Deepak Gotmare, Silvio Savarese, and Steven C. H. Hoi. 2022a.
+CodeRL: Mastering Code Generation through Pretrained Models and Deep Reinforcement Learn-
+ing.
+Hung Le, Yue Wang, Akhilesh Deepak Gotmare, Silvio Savarese, and Steven C. H. Hoi. 2022b.
+Coderl: Mastering code generation through pretrained models and deep reinforcement learning.
+ArXiv, abs/2207.01780.
+Juncen Li, Robin Jia, He He, and Percy Liang. 2018. Delete, retrieve, generate: a simple approach to
+sentiment and style transfer. In Proceedings of the 2018 Conference of the North American Chapter
+of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long
+Papers), pages 1865–1874, New Orleans, Louisiana. Association for Computational Linguistics.
+Bill Yuchen Lin, Wangchunshu Zhou, Ming Shen, Pei Zhou, Chandra Bhagavatula, Yejin Choi,
+and Xiang Ren. 2020. CommonGen: A constrained text generation challenge for generative
+commonsense reasoning. In Findings of the Association for Computational Linguistics: EMNLP
+2020, pages 1823–1840, Online. Association for Computational Linguistics.
+Jiacheng Liu, Skyler Hallinan, Ximing Lu, Pengfei He, Sean Welleck, Hannaneh Hajishirzi, and Yejin
+Choi. 2022. Rainier: Reinforced knowledge introspector for commonsense question answering. In
+Conference on Empirical Methods in Natural Language Processing.
+Ximing Lu, Sean Welleck, Liwei Jiang, Jack Hessel, Lianhui Qin, Peter West, Prithviraj Am-
+manabrolu, and Yejin Choi. 2022. Quark: Controllable text generation with reinforced unlearning.
+ArXiv, abs/2205.13636.
+Aman Madaan, Alexander Shypula, Uri Alon, Milad Hashemi, Parthasarathy Ranganathan, Yiming
+Yang, Graham Neubig, and Amir Yazdanbakhsh. 2023. Learning performance-improving code
+edits. arXiv preprint arXiv:2302.07867.
+Aman Madaan, Niket Tandon, Dheeraj Rajagopal, Peter Clark, Yiming Yang, and Eduard Hovy.
+2021. Think about it! improving defeasible reasoning by first modeling the question scenario.
+In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing,
+pages 6291–6310, Online and Punta Cana, Dominican Republic. Association for Computational
+Linguistics.
+Shikib Mehri and Maxine Eskenazi. 2020. Unsupervised evaluation of interactive dialog with
+DialoGPT. In Proceedings of the 21th Annual Meeting of the Special Interest Group on Discourse
+and Dialogue, pages 225–235, 1st virtual meeting. Association for Computational Linguistics.
+Erik Nijkamp, Bo Pang, Hiroaki Hayashi, Lifu Tu, Huan Wang, Yingbo Zhou, Silvio Savarese, and
+Caiming Xiong. 2022. Codegen: An open large language model for code with multi-turn program
+synthesis. ArXiv preprint, abs/2203.13474.
+OpenAI. Model index for researchers. https://platform.openai.com/docs/
+model-index-for-researchers . Accessed: May 14, 2023.
+11
+OpenAI. 2022. Model index for researchers. Blogpost.
+OpenAI. 2023. Gpt-4 technical report.
+Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong
+Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton,
+Luke E. Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Francis Christiano, Jan
+Leike, and Ryan J. Lowe. 2022. Training language models to follow instructions with human
+feedback. ArXiv:2203.02155.
+Baolin Peng, Michel Galley, Pengcheng He, Hao Cheng, Yujia Xie, Yu Hu, Qiuyuan Huang, Lars
+Liden, Zhou Yu, Weizhu Chen, and Jianfeng Gao. 2023. Check Your Facts and Try Again:
+Improving Large Language Models with External Knowledge and Automated Feedback.
+Shrimai Prabhumoye, Yulia Tsvetkov, Ruslan Salakhutdinov, and Alan W Black. 2018. Style
+transfer through back-translation. In Proceedings of the 56th Annual Meeting of the Association
+for Computational Linguistics (Volume 1: Long Papers), pages 866–876, Melbourne, Australia.
+Association for Computational Linguistics.
+Ofir Press, Muru Zhang, Sewon Min, Ludwig Schmidt, Noah A Smith, and Mike Lewis. 2022. Measur-
+ing and narrowing the compositionality gap in language models. arXiv preprint arXiv:2210.03350.
+Ruchir Puri, David Kung, Geert Janssen, Wei Zhang, Giacomo Domeniconi, Vladmir Zolotov, Julian
+Dolby, Jie Chen, Mihir Choudhury, Lindsey Decker, Veronika Thost, Luca Buratti, Saurabh Pujar,
+Shyam Ramji, Ulrich Finkler, Susan Malaika, and Frederick Reiss. 2021. Codenet: A large-scale
+ai for code dataset for learning a diversity of coding tasks. arXiv preprint arXiv:2105.12655.
+Machel Reid and Graham Neubig. 2022. Learning to model editing processes. arXiv preprint
+arXiv:2205.12374.
+William Saunders, Catherine Yeh, Jeff Wu, Steven Bills, Long Ouyang, Jonathan Ward, and Jan
+Leike. 2022a. Self-critiquing models for assisting human evaluators.
+William Saunders, Catherine Yeh, Jeff Wu, Steven Bills, Long Ouyang, Jonathan Ward, and Jan
+Leike. 2022b. Self-critiquing models for assisting human evaluators. ArXiv:2206.05802.
+Jérémy Scheurer, Jon Ander Campos, Jun Shern Chan, Angelica Chen, Kyunghyun Cho, and Ethan
+Perez. 2022. Training language models with natural language feedback. ArXiv:2204.14146.
+Timo Schick, Jane Dwivedi-Yu, Zhengbao Jiang, Fabio Petroni, Patrick Lewis, Gautier Izacard,
+Qingfei You, Christoforos Nalmpantis, Edouard Grave, and Sebastian Riedel. 2022a. Peer: A
+collaborative language model.
+Timo Schick, Jane Dwivedi-Yu, Zhengbao Jiang, Fabio Petroni, Patrick Lewis, Gautier Izacard,
+Qingfei You, Christoforos Nalmpantis, Edouard Grave, and Sebastian Riedel. 2022b. Peer: A
+collaborative language model. ArXiv, abs/2208.11663.
+Noah Shinn, Beck Labash, and Ashwin Gopinath. 2023. Reflexion: an autonomous agent with
+dynamic memory and self-reflection.
+Herbert A. Simon. 1962. The architecture of complexity. Proceedings of the American Philosophical
+Society, 106(6):467–482.
+Nisan Stiennon, Long Ouyang, Jeffrey Wu, Daniel Ziegler, Ryan Lowe, Chelsea V oss, Alec Radford,
+Dario Amodei, and Paul F Christiano. 2020. Learning to summarize with human feedback.
+In Advances in Neural Information Processing Systems, volume 33, pages 3008–3021. Curran
+Associates, Inc.
+Zhiqing Sun, Yikang Shen, Qinhong Zhou, Hongxin Zhang, Zhenfang Chen, David Cox, Yiming
+Yang, and Chuang Gan. 2023. Principle-driven self-alignment of language models from scratch
+with minimal human supervision. arXiv preprint arXiv:2305.03047.
+Niket Tandon, Aman Madaan, Peter Clark, Keisuke Sakaguchi, and Yiming Yang. 2021. Interscript: A
+dataset for interactive learning of scripts through error feedback. arXiv preprint arXiv:2112.07867.
+12

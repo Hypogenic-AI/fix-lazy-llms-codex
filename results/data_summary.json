@@ -1,0 +1,28 @@
+{
+  "gsm8k": {
+    "rows": 1319,
+    "columns": [
+      "question",
+      "answer"
+    ],
+    "missing_values": {
+      "question": 0,
+      "answer": 0
+    }
+  },
+  "arc": {
+    "rows": 1172,
+    "columns": [
+      "id",
+      "question",
+      "choices",
+      "answerKey"
+    ],
+    "missing_values": {
+      "id": 0,
+      "question": 0,
+      "choices": 0,
+      "answerKey": 0
+    }
+  }
+}

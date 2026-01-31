@@ -1,0 +1,35 @@
+\section{Results}
+\label{sec:results}
+
+\para{Main accuracy results.} Table~\ref{tab:accuracy} shows accuracy for all prompt conditions. \cotprompt is the strongest overall improvement, lifting \gsm from 0.52 to 0.74, while \rudedirect yields the highest \arc accuracy (0.92). Both harsh-critic variants reduce accuracy substantially on both datasets.
+
+\input{tables/accuracy_main}
+
+\para{Statistical comparisons.} Table~\ref{tab:diff_ci} reports paired bootstrap confidence intervals relative to \direct. \cotprompt provides a reliable gain on \gsm (+0.22, 95\% CI [0.08, 0.36]) and a small, non-significant change on \arc. In contrast, \harshcritic and \harshbudget show large negative deltas on both datasets, and the low-budget critic condition is the worst overall.
+
+\input{tables/diff_ci}
+
+\para{Length-effort trade-offs.} Direct prompts are extremely short (about 2 words on average). \cotprompt responses are longer (roughly 103--123 words) and more accurate. \harshcritic produces the longest responses (roughly 155--191 words) while still reducing accuracy, and \harshbudget reduces length (about 85--99 words) but further harms accuracy. This pattern suggests that longer outputs are not inherently better when the critique signal is weak.
+
+\para{Figures.} \Figref{fig:gsm8k_accuracy} and \Figref{fig:arc_accuracy} visualize the accuracy pattern across conditions, and \Figref{fig:question_length} shows the question length distribution for the evaluation samples.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/gsm8k_accuracy.png}
+    \caption{Accuracy by condition on \gsm (n=50). \cotprompt improves accuracy, while harsh-critic variants reduce performance.}
+    \label{fig:gsm8k_accuracy}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/arc_accuracy.png}
+    \caption{Accuracy by condition on \arc (n=50). Harsh-critic prompting sharply reduces accuracy despite longer outputs.}
+    \label{fig:arc_accuracy}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/question_length_hist.png}
+    \caption{Question length distribution for the evaluation samples.}
+    \label{fig:question_length}
+\end{figure}

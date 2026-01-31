@@ -1,0 +1,10 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\para{Effort-inducing prompting.} Chain-of-thought prompting improves reasoning by eliciting intermediate steps \cite{wei2022cot}, and least-to-most prompting decomposes complex problems into simpler subproblems \cite{zhou2022least}. These methods motivate our \cotprompt baseline and highlight that prompt structure can change reasoning behavior.
+
+\para{Decoding and selection for reasoning.} Self-consistency aggregates multiple reasoning traces to select the most consistent answer \cite{wang2022selfconsistency}, while self-evaluation guided beam search uses evaluation signals during decoding \cite{xie2023selfeval}. Our study keeps decoding fixed to isolate the impact of prompt-level interventions.
+
+\para{Self-critique and refinement.} Self-refinement loops can improve outputs across tasks \cite{madaan2023selfrefine}, and Reflexion uses self-reflection memory to improve agent performance \cite{shinn2023reflexion}. Dual-critique prompting studies how critique can reduce errors under inductive instructions \cite{wang2023dualcritique}. Unlike these approaches, we focus on a single-pass critic prompt and explicitly test whether critic harshness and budget control improve reasoning accuracy.
+
+\para{Lazy learners and shortcut reliance.} Tang et al. show that LLMs can rely on prompt shortcuts, leading to performance collapse on anti-shortcut data \cite{tang2023lazy}. This motivates our focus on prompt interventions that might reduce shallow or shortcut-driven outputs.
